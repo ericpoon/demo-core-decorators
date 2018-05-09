@@ -1,4 +1,4 @@
-import { readonly, log, timer, lazyinit, memoize, before, afterFinally, around } from './core/core-decorators';
+import { readonly, log, timer, lazyinit, memoize, before, afterFinally, around, autobind } from './decorators';
 
 function handleProceedingJoinPoint(fn, args, target, name) {
   console.log('around: start calling function:', target.constructor.name + '.' + name);
@@ -12,8 +12,8 @@ class Student {
   @readonly
   name = 'Tommy';
 
-  @timer
   @log
+  @timer
   sayHello() {
     console.log('Hello, ' + this.name);
   }
@@ -27,11 +27,13 @@ class Student {
       total += Math.random() * 2 + 2;
     }
     console.timeEnd('calculating gpa');
+    console.log(this.name + '\' GPA is ' + total / i);
     return total / i;
   })();
 
   @memoize
   expensive() {
+    console.log('doing expensive operation on ' + this.name);
     let i = 0;
     console.time('expensive operation');
     while (i < 1000000000) {
@@ -45,7 +47,7 @@ class Student {
   @afterFinally(() => console.log('after finally'))
   @around(handleProceedingJoinPoint)
   testAOP() {
-    console.log('testAOP');
+    console.log('testAOP', this);
   }
 
 }

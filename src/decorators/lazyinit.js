@@ -8,7 +8,7 @@ export default function lazyinit(target, name, descriptor) {
       enumerable: true,
       get() {
         if (!didInit) {
-          value = init();
+          value = init.bind(this)();
           didInit = true;
         }
         return value;

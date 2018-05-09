@@ -4,7 +4,7 @@ export function before(doBefore) {
   function decorator(fn, target, name) {
     return function (...args) {
       doBefore(target, name, args);
-      return fn(...args);
+      return fn.bind(this)(...args);
     };
   }
 
@@ -16,7 +16,7 @@ export function afterReturning(doAfterReturning) {
     return function (...args) {
       let result;
       try {
-        result = fn(...args);
+        result = fn.bind(this)(...args);
         doAfterReturning(target, name, args, result);
       } catch (e) {
         throw e;
@@ -33,7 +33,7 @@ export function afterThrowing(doAfterThrowing) {
     return function (...args) {
       let result;
       try {
-        result = fn(...args);
+        result = fn.bind(this)(...args);
       } catch (e) {
         doAfterThrowing(target, name, args, e);
         throw e;
@@ -50,7 +50,7 @@ export function afterFinally(doAfterFinally) {
     return function (...args) {
       let result;
       try {
-        result = fn(...args);
+        result = fn.bind(this)(...args);
       } catch (e) {
         throw e;
       } finally {
@@ -66,7 +66,7 @@ export function afterFinally(doAfterFinally) {
 export function around(handleProceedingJoinPoint) {
   function decorator(fn, target, name) {
     return function (...args) {
-      return handleProceedingJoinPoint(fn, args, target, name);
+      return handleProceedingJoinPoint(fn.bind(this), args, target, name);
     };
   }
 

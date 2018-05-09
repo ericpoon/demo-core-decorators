@@ -6,7 +6,7 @@ function memoizeDecorator(fn) {
   return function (...args) {
     if (!inputs) {
       inputs = args;
-      result = fn(...args);
+      result = fn.bind(this)(...args);
       return result;
     }
 
@@ -19,7 +19,7 @@ function memoizeDecorator(fn) {
     }
 
     if (!sameInput) {
-      result = fn(...args);
+      result = fn.bind(this)(...args);
       inputs = args;
     }
 
