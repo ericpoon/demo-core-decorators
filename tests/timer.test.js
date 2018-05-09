@@ -25,5 +25,6 @@ it('logs time', () => {
 
 it('does not lose `this`', () => {
   const that = new Tester().getThis();
+  expect(that).toBeDefined();
   expect(that instanceof Tester).toBeTruthy();
 });

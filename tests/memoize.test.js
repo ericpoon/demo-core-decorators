@@ -54,6 +54,7 @@ it('should re-calculate if input changes', () => {
 
 it('does not lose `this`', () => {
   const that1 = new Tester().getThis();
+  expect(that1).toBeDefined();
   expect(that1 instanceof Tester);
 
   const that2 = new Tester().getThis();

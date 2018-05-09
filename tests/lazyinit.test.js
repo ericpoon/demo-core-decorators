@@ -35,5 +35,6 @@ it('never calculates again after initialization', () => {
 
 it('does not lose `this`', () => {
   const that = new Tester().myself;
+  expect(that).toBeDefined();
   expect(that instanceof Tester);
 });
