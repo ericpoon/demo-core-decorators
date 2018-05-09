@@ -62,3 +62,13 @@ export function afterFinally(doAfterFinally) {
 
   return decorate(decorator);
 }
+
+export function around(handleProceedingJoinPoint) {
+  function decorator(fn, target, name) {
+    return function (...args) {
+      return handleProceedingJoinPoint(fn, args, target, name);
+    };
+  }
+
+  return decorate(decorator);
+}

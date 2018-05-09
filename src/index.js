@@ -1,4 +1,11 @@
-import { readonly, log, timer, lazyinit, memoize, before, afterFinally } from './core/core-decorators';
+import { readonly, log, timer, lazyinit, memoize, before, afterFinally, around } from './core/core-decorators';
+
+function handleProceedingJoinPoint(fn, args, target, name) {
+  console.log('around: start calling function:', target.constructor.name + '.' + name);
+  const result = fn(...args);
+  console.log('around: finish calling, returning:', result);
+  return result;
+}
 
 class Student {
 
@@ -36,6 +43,7 @@ class Student {
 
   @before(() => console.log('before'))
   @afterFinally(() => console.log('after finally'))
+  @around(handleProceedingJoinPoint)
   testAOP() {
     console.log('testAOP');
   }
