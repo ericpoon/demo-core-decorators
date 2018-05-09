@@ -7,6 +7,11 @@ const expensiveOperation = jest.fn(() => {
 class Tester {
   @lazyinit
   score = expensiveOperation();
+
+  @lazyinit
+  myself = (() => {
+    return this;
+  })();
 }
 
 it('does not initialize when instantiation', () => {
@@ -26,4 +31,9 @@ it('never calculates again after initialization', () => {
   tester.score;
   tester.score;
   expect(expensiveOperation).toHaveBeenCalledTimes(1);
+});
+
+it('does not lose `this`', () => {
+  const that = new Tester().myself;
+  expect(that instanceof Tester);
 });
