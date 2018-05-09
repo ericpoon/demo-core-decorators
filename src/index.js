@@ -1,4 +1,4 @@
-import { readonly, log, timer, lazyinit } from './core/core-decorators';
+import { readonly, log, timer, lazyinit, memoize } from './core/core-decorators';
 
 class Student {
 
@@ -14,13 +14,25 @@ class Student {
   @lazyinit
   gpa = (() => {
     let i = 0;
+    let total = 0;
     console.time('calculating gpa');
-    while (i < 999999999) {
-      i++;
+    while (i++ < 99999999) {
+      total += Math.random() * 2 + 2;
     }
     console.timeEnd('calculating gpa');
-    return i;
+    return total / i;
   })();
+
+  @memoize
+  expensive() {
+    let i = 0;
+    console.time('expensive operation');
+    while (i < 1000000000) {
+      i++;
+    }
+    console.timeEnd('expensive operation');
+    return i;
+  }
 
 }
 
@@ -39,3 +51,7 @@ console.log();
 console.log(student.gpa);
 console.log(student.gpa);
 console.log(student.gpa);
+
+console.log(student.expensive());
+console.log(student.expensive());
+console.log(student.expensive());
