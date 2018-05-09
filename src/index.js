@@ -1,4 +1,4 @@
-import { readonly, log, timer, lazyinit, memoize } from './core/core-decorators';
+import { readonly, log, timer, lazyinit, memoize, before, afterFinally } from './core/core-decorators';
 
 class Student {
 
@@ -34,6 +34,12 @@ class Student {
     return i;
   }
 
+  @before(() => console.log('before'))
+  @afterFinally(() => console.log('after finally'))
+  testAOP() {
+    console.log('testAOP');
+  }
+
 }
 
 const student = new Student();
@@ -55,3 +61,5 @@ console.log(student.gpa);
 console.log(student.expensive());
 console.log(student.expensive());
 console.log(student.expensive());
+
+student.testAOP();

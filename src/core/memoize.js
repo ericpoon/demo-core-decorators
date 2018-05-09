@@ -1,4 +1,6 @@
-function memoizeHelper(fn) {
+import decorate from './decorate';
+
+function memoizeDecorator(fn) {
   let inputs;
   let result;
   return function (...args) {
@@ -26,15 +28,4 @@ function memoizeHelper(fn) {
   };
 }
 
-export default function memoize(target, name, descriptor) {
-  if (descriptor.value) {
-    const fn = descriptor.value;
-    if (typeof fn === 'function') {
-      descriptor.value = memoizeHelper(fn);
-    }
-  } else if (typeof descriptor.get === 'function' && typeof descriptor.get() === 'function') {
-    descriptor.get = () => memoizeHelper(descriptor.get());
-  }
-
-  return descriptor;
-}
+export default decorate(memoizeDecorator);
