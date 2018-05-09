@@ -1,3 +1,7 @@
+/**
+ * Higher order function must NOT be arrow function
+ * MUST bind the original function with `this` in custom decorator
+ */
 export default function decorate(decorator) {
   return function (target, name, descriptor) {
     if (typeof descriptor.value === 'function') {
