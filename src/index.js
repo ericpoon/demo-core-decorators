@@ -1,4 +1,4 @@
-import { readonly, autobind, around, log, timer } from './core/core-decorators';
+import { readonly, log, timer, lazyinit } from './core/core-decorators';
 
 class Student {
 
@@ -10,6 +10,17 @@ class Student {
   sayHello() {
     console.log('Hello, ' + this.name);
   }
+
+  @lazyinit
+  gpa = (() => {
+    let i = 0;
+    console.time('calculating gpa');
+    while (i < 999999999) {
+      i++;
+    }
+    console.timeEnd('calculating gpa');
+    return i;
+  })();
 
 }
 
@@ -24,3 +35,7 @@ console.log('Student name:', student.name);
 console.log();
 student.sayHello();
 console.log();
+
+console.log(student.gpa);
+console.log(student.gpa);
+console.log(student.gpa);
