@@ -1,3 +1,7 @@
+/**
+* Inspired by Java Aspect Oriented Programming (AOP)
+* */
+
 import decorate from './decorate';
 
 export function before(doBefore) {
