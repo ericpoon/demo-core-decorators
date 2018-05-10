@@ -23,4 +23,4 @@ Implemented for fun and learning purpose only.
 
 > Note: _@before_, _@after*_ and _@around_ decorators are inspired by Aspect Oriented Programming (AOP) pattern in Java
 
-> Note: Unit tests are available for all decorators, and integration tests with lodash are available for _@decorate_
+> Note: Unit tests are available for all decorators, and integration tests with [lodash](https://github.com/lodash/lodash) are available for _@decorate_
